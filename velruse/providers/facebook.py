@@ -118,7 +118,7 @@ class FacebookProvider(object):
         if r.status_code != 200:
             raise ThirdPartyFailure("Status %s: %s" % (
                 r.status_code, r.content))
-        access_token = dict(parse_qsl(r.text))['access_token']
+        access_token = r.json()['access_token']
 
         # Retrieve profile data
         graph_url = flat_url('https://graph.facebook.com/me',
@@ -195,3 +195,4 @@ def extract_fb_data(data):
             del profile[k]
 
     return profile
+
